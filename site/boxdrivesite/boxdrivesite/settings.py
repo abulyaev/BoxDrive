@@ -31,7 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'boxdriveusersreg.apps.BoxdriveusersregConfig',
     'boxdriveapp.apps.BoxdriveappConfig',
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -119,3 +121,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Changed to bootstrap4 for crispy
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
