@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from boxdriveusersreg import views as usersreg_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('boxdriveapp.urls')),
+    path('register/', usersreg_views.register, name='register'),
 ]
