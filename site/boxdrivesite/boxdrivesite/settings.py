@@ -124,3 +124,7 @@ STATIC_URL = '/static/'
 
 # Changed to bootstrap4 for crispy
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = 'boxdrive-home'
+
+LOGIN_URL = 'login'
