@@ -1,15 +1,16 @@
 {% extends "boxdriveapp/base.html" %}
 {% block content %}
     {% for file in files %}
-        <article class="media-content-section">
-            <div class="media-body">
-                <div class="article-metadata">
-                    <a class="mr-2" href="#">{{ file.poster }}</a>
-                    <small class="text-muted">{{ file.datePosted|date:"F d, Y" }}</small>
-                </div>
-                <h2><a class="article-title" href="#">{{ file.fileName }}</a></h2>
-                <p class="article-content"> {{ file.Url }}</p>
+        <article class="media content-section">
+          <img class="rounded-circle article-img" src="{{ file.poster.profile.image.url }}">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ file.poster }}</a>
+              <small class="text-muted">{{ file.datePosted|date:"F d, Y" }}</small>
             </div>
+            <h2><a class="article-title" href="#">{{ file.fileName }}</a></h2>
+            <p class="article-content">{{ post.Url }}</p>
+          </div>
         </article>
     {% endfor %}
 {% endblock content %}
