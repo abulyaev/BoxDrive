@@ -10,7 +10,6 @@
             </div>
             <h2><a class="article-title" href="{% url 'post-detail' file.id %}">{{ file.fileName }}</a></h2>
             <p class="article-content">{{ file.fileUrl }}</p>
-            <p class="article-content">{{ file.fileContent }}</p>
           </div>
         </article>
     {% endfor %}
