@@ -9,7 +9,8 @@
               <small class="text-muted">{{ file.datePosted|date:"F d, Y" }}</small>
             </div>
             <h2><a class="article-title" href="{% url 'post-detail' file.id %}">{{ file.fileName }}</a></h2>
-            <p class="article-content">{{ post.Url }}</p>
+            <p class="article-content">{{ file.fileUrl }}</p>
+            <p class="article-content">{{ file.fileContent }}</p>
           </div>
         </article>
     {% endfor %}
