@@ -31,7 +31,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['fileName', 'fileUrl', 'fileContent']
+    fields = ['fileName', 'fileUrl']
 
     def form_valid(self, form):
         form.instance.poster = self.request.user
@@ -40,7 +40,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ['fileName', 'fileUrl', 'fileContent']
+    fields = ['fileName', 'fileUrl']
 
     def form_valid(self, form):
         form.instance.poster = self.request.user
