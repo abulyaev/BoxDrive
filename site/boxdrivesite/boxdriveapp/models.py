@@ -23,7 +23,7 @@ class Post(models.Model):
 
 class Document(models.Model):
     objects = models.Manager()
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    cur_user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     title = models.CharField(max_length=128)
     file_field = models.FileField(upload_to='documents/')
 

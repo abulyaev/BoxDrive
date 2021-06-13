@@ -45,16 +45,15 @@ class DocumentCreateView(LoginRequiredMixin, CreateView):
 
 
 class DocumentUploadView(ListView):
-    def get(self, request, username):
-        return render(request, 'boxdriveapp/upload_file.html')
+    def get(self, request, cur_user, *args, **kwargs):
+        return render(request, 'boxdriveapp/upload_file.html', {'cur_user': cur_user,})
 
-
-    def post(self, request, username):
+    def post(self, request, cur_user):
         filename = request.FILES['filename']
         title = request.POST['title']
 
-        user_obj = Profile.objects.get(username=username)
-        upload_doc = Document(user=user_obj, title=title, file_field=filename)
+        user_obj = Profile.objects.get(user__username=cur_user)
+        upload_doc = Document(cur_user=user_obj, title=title, file_field=filename)
         upload_doc.save()
         messages.success(request, 'Your Post has been uploaded successfully.')
         return render(request, 'boxdriveapp/upload_file.html')
