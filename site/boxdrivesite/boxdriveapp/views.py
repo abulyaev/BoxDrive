@@ -46,7 +46,7 @@ class DocumentCreateView(LoginRequiredMixin, CreateView):
 
 class DocumentUploadView(ListView):
     def get(self, request, username):
-        return render(request, 'main/upload_file.html')
+        return render(request, 'boxdriveapp/upload_file.html')
 
 
     def post(self, request, username):
@@ -57,7 +57,7 @@ class DocumentUploadView(ListView):
         upload_doc = Document(user=user_obj, title=title, file_field=filename)
         upload_doc.save()
         messages.success(request, 'Your Post has been uploaded successfully.')
-        return render(request, 'main/upload_file.html')
+        return render(request, 'boxdriveapp/upload_file.html')
 
 
 class DocumentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

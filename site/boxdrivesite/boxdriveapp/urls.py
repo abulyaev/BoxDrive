@@ -19,10 +19,7 @@ urlpatterns = [
     # path('', views.home, name='boxdrive-home'),
 
     #############################################
-    path('<str:username>/upload_file/', views.DocumentUploadView.as_view(), name='upload_file'),
+    path('file/<str:username>/upload_file/', views.DocumentUploadView.as_view(), name='upload_file'),
     path('delete/<int:document_id>/', views.DocumentDeleteView.as_view(), name='post-delete'),
-
-    #path('file/new/', PostCreateView.as_view(), name='post-create'),
     path('file/<int:pk>/', views.DocumentDetailView.as_view(), name='post-detail'),
-    #path('file/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
 ]

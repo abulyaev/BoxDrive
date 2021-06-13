@@ -1,10 +1,11 @@
 {% extends 'boxdriveapp/base.html' %}
 
 {% load crispy_forms_tags %}
+{% block content %}
 
-<div class="container my-4 alert alert-success"> 
+<div class="container my-4 alert alert-success">
     <div class="container">
-        <form action="{% url 'upload_file' request.session.user %}" method="post" enctype="multipart/form-data">
+        <form action="{% url 'upload_file' user.username %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <br>
             <div class="form-group">
@@ -16,15 +17,25 @@
                 <input type="text" class="form-control" name="title" id="exampleFormControlInput1" required>
             </div>
 
-
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1" class="display-4">Description</label>
-                <textarea class="form-control" name="desc" id="exampleFormControlTextarea1" rows="10" required></textarea>
-            </div>
-
             <input type="submit" value="Upload" class="btn btn-outline-primary">
         </form>
     </div>
 </div>
+
+<!--
+<div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ object.user }}</a>
+              {% if object.user == user %}
+                <div>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+                </div>
+              {% endif%}
+            </div>
+            <h2 class="article-title">{{ object.title }}</h2>
+            <p class="article-content">{{ object.file_field }}</p>
+</div>
+-->
 
 {% endblock content %}
