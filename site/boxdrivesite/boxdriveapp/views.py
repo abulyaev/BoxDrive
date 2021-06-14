@@ -11,6 +11,13 @@ from boxdriveusersreg.models import Profile
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
+from django.core.files.uploadhandler import MemoryFileUploadHandler, TemporaryFileUploadHandler
+from django.views.generic.edit import CreateView
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from encrypted_files.base import EncryptedFile
+from django.http import HttpResponse
+
 
 def home(request):
 
@@ -117,3 +124,28 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
+@method_decorator(csrf_exempt, 'dispatch')
+class CreateEncryptedFile(CreateView):
+    model = Document
+    fields = ["file"]
+
+    def post(self, request, *args, **kwargs):
+        request.upload_handlers = [
+            EncryptedFileUploadHandler(request=request),
+            MemoryFileUploadHandler(request=request),
+            TemporaryFileUploadHandler(request=request)
+        ]  
+        return self._post(request)
+
+    @method_decorator(csrf_protect)
+    def _post(self, request):
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    #def decrypted(request,pk):
+    #    f = Document.objects.get(pk=pk).file
+    #    ef = EncryptedFile(f)
+    #    return HttpResponse(ef.read())
