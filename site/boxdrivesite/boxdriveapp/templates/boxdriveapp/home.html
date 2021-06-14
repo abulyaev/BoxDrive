@@ -14,7 +14,7 @@
 
                 <a href="{{MEDIA_URL}}/{{document.file_field.url}}" class="btn btn-warning" target="_blank">View</a>
                 <a href="{{MEDIA_URL}}/{{document.file_field.url}}" class="btn btn-info mx-4" download>Download</a>
-                <a href="{% url 'post-delete' %}" class="btn btn-outline-danger" style="float:right;">Delete</a>
+                <a href="{% url 'post-delete' document.id %}" class="btn btn-outline-danger" style="float:right;">Delete</a>
 
             </div>
         </div>
