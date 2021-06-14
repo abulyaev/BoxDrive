@@ -8,12 +8,10 @@
             <div class="card-body">
                 <h5 class="card-title">{{document.title}}</h5>
 
-                {% if request.session.user %}
-                    <a href="{{MEDIA_URL}}/{{document.file_field.url}}" class="btn btn-warning" target="_blank">View</a>
-                    <a href="{{MEDIA_URL}}/{{document.file_field.url}}" class="btn btn-info mx-4" download>Download</a>
-                {% else %}
-                    <a href="#">You Have To Login Before Download this File.</a>
-                {% endif %}
+                <a href="{{MEDIA_URL}}/{{document.file_field.url}}" class="btn btn-warning" target="_blank">View</a>
+                <a href="{{MEDIA_URL}}/{{document.file_field.url}}" class="btn btn-info mx-4" download>Download</a>
+                <a href="{% url 'post-delete' %}" class="btn btn-outline-danger" style="float:right;">Delete</a>
+
             </div>
         </div>
     </div>

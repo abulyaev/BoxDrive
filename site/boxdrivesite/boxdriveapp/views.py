@@ -73,7 +73,7 @@ class DocumentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         delete_doc = self.model.objects.get(id=document_id)
         delete_doc.delete()
         messages.success(request, 'Your post has been deleted successfully.')
-        return redirect(f'')
+        return redirect('boxdrive-home')
 
 #################################################################
 
