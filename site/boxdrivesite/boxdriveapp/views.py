@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.views.generic import (
     ListView,
@@ -7,10 +8,12 @@ from django.views.generic import (
     DeleteView
 )
 from encrypted_files.uploadhandler import EncryptedFileUploadHandler
+from django.urls import reverse
 
 from . models import Document
 from django.contrib.auth.models import User
 from boxdriveusersreg.models import Profile
+from boxdrivesite.settings import MEDIA_ROOT
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
@@ -65,15 +68,18 @@ class DocumentUploadView(UpdateView):
         return render(request, 'boxdriveapp/upload_file.html')
 
 
-class DocumentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class DocumentDeleteView(LoginRequiredMixin, DeleteView):
     model = Document
 
-    def get(self, request, document_id):
-        user = request.session['user']
-        delete_doc = self.model.objects.get(id=document_id)
-        delete_doc.delete()
-        messages.success(request, 'Your post has been deleted successfully.')
-        return redirect('boxdrive-home')
+    def get(self, request, pk):
+        object = self.get_object()
+        if object is not None:
+            # TODO: actually remove file from fs
+            object.delete()
+            messages.success(request, 'Your post has been deleted successfully.')
+            return redirect('boxdrive-home')
+        else:
+            messages.success(request, "Something went wrong. Couldn't delete file.")
 
 #################################################################
 

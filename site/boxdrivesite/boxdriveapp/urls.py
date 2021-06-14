@@ -17,6 +17,6 @@ urlpatterns = [
     path('about/', views.about, name='boxdrive-about'),
     path('file/<str:cur_user>/upload_file/', views.DocumentUploadView.as_view(), name='upload_file'),
     #path('delete/<int:document_id>/', views.DocumentDeleteView.as_view(), name='post-delete'),
-    path('delete/', views.DocumentDeleteView.as_view(), name='post-delete'),
+    path('delete/<int:pk>/', views.DocumentDeleteView.as_view(), name='post-delete'),
     path('file/<int:pk>/', views.DocumentDetailView.as_view(), name='post-detail'),
 ]
