@@ -10,18 +10,7 @@ from . models import Post, Document
 from django.contrib.auth.models import User
 from boxdriveusersreg.models import Profile
 from django.contrib import messages
-from rest_framework import filters
-from rest_framework import generics
-#from boxdriveapp.serializers import UserSerializer
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-
-
-def home(request):
-
-    context = {
-        'files': Post.objects.all()
-    }
-    return render(request, 'boxdriveapp/home.html', context)
 
 
 def about(request):
@@ -29,50 +18,14 @@ def about(request):
 
 
 ##################################################################
-def get_doc_list(request, *args, **kwargs):
-    user_doc_list = Document.objects.filter(cur_user=Document.cur_user)
-
-    context = {
-        'doc-list': user_doc_list,
-    }
-
-    return render(request, 'boxdriveapp/home.html', context)
-
-
 class DocumentListView(ListView):
     model = Document
     template_name = 'boxdriveapp/home.html'
     context_object_name = 'documents'
 
-    '''
     # функция для фильтрации документов по юзеру 
     def get_queryset(self, *args, **kwargs):
-        return Document.objects.filter(cur_user=self.request.user)
-    '''
-
-    '''
-    def get_queryset(self, *args, **kwargs):
-        self.cur_user = get_object_or_404(Profile, user=self.kwargs['cur_user'])
-        #currentuser = self.model.objects.get(cur_user=self.kwargs['cur_user'])
-        return Document.objects.filter(cur_user=self.cur_user)
-        #return currentuser
-    '''
-
-
-
-
-class HomePageView(ListView):
-    model = Document
-    #context_object_name = 'files'
-
-    def get_doc_list(self, request, cur_user, *args, **kwargs):
-        user_doc_list = Document.objects.filter(created_by=cur_user)
-
-        context = {
-            'doc-list': user_doc_list,
-        }
-
-        return render(request, 'boxdriveapp/home.html', context)
+        return Document.objects.filter(cur_user=self.request.user.profile)
 
 
 class DocumentDetailView(DetailView):

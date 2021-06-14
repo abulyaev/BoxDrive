@@ -26,7 +26,6 @@ class Document(models.Model):
     cur_user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     title = models.CharField(max_length=128)
     file_field = models.FileField(upload_to='documents/')
-    #file_field = models.FileField(upload_to="documents/user_{cur_user}/".format(cur_user=cur_user))
 
     def __str__(self):
         return self.title
