@@ -27,14 +27,14 @@ def about(request):
 
 
 ##################################################################
-class DocumentListView(ListView):
+class DocumentListView(LoginRequiredMixin, ListView):
     model = Document
     template_name = 'boxdriveapp/home.html'
     context_object_name = 'documents'
 
     # функция для фильтрации документов по юзеру 
     def get_queryset(self, *args, **kwargs):
-        return Document.objects.filter(cur_user=self.request.user.profile)
+        return Document.objects.filter(cur_user=self.request.user.profile).order_by('-upload_time')
 
 
 class DocumentDetailView(DetailView):

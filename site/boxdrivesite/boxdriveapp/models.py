@@ -26,6 +26,7 @@ class Document(models.Model):
     cur_user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     title = models.CharField(max_length=128)
     file_field = models.FileField(upload_to='documents/')
+    upload_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
