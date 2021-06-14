@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.views.generic import (
     ListView,
     DetailView,
@@ -7,6 +7,7 @@ from django.views.generic import (
     DeleteView
 )
 from . models import Post, Document
+from django.contrib.auth.models import User
 from boxdriveusersreg.models import Profile
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -19,23 +20,19 @@ from encrypted_files.base import EncryptedFile
 from django.http import HttpResponse
 
 
-def home(request):
-
-    context = {
-        'files': Post.objects.all()
-    }
-    return render(request, 'boxdriveapp/home.html', context)
-
-
 def about(request):
     return render(request, 'boxdriveapp/about.html')
+
 
 ##################################################################
 class DocumentListView(ListView):
     model = Document
-    template_name = 'boxdriveapp/home.html'  # <app>/<model>_<viewtype>.html
-    context_object_name = 'files'
-    #ordering = ['pk']
+    template_name = 'boxdriveapp/home.html'
+    context_object_name = 'documents'
+
+    # функция для фильтрации документов по юзеру 
+    def get_queryset(self, *args, **kwargs):
+        return Document.objects.filter(cur_user=self.request.user.profile)
 
 
 class DocumentDetailView(DetailView):
@@ -51,7 +48,7 @@ class DocumentCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class DocumentUploadView(ListView):
+class DocumentUploadView(UpdateView):
     def get(self, request, cur_user, *args, **kwargs):
         return render(request, 'boxdriveapp/upload_file.html', {'cur_user': cur_user,})
 
