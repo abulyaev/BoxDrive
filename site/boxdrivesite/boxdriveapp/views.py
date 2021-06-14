@@ -34,7 +34,7 @@ class DocumentListView(ListView):
 
     # функция для фильтрации документов по юзеру 
     def get_queryset(self, *args, **kwargs):
-        return Document.objects.filter(cur_user=self.request.user.profile)
+        return Document.objects.filter(cur_user=self.request.user.profile).order_by('-upload_time')
 
 
 class DocumentDetailView(DetailView):
