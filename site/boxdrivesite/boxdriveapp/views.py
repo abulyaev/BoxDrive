@@ -27,7 +27,7 @@ def about(request):
 
 
 ##################################################################
-class DocumentListView(ListView):
+class DocumentListView(LoginRequiredMixin, ListView):
     model = Document
     template_name = 'boxdriveapp/home.html'
     context_object_name = 'documents'
