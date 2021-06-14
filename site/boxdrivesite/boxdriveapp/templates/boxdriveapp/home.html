@@ -12,8 +12,8 @@
             <div class="card-body">
                 <h5 class="card-title">{{document.title}}</h5>
 
-                <a href="{{MEDIA_URL}}/{{document.file_field.url}}" class="btn btn-warning" target="_blank">View</a>
-                <a href="{{MEDIA_URL}}/{{document.file_field.url}}" class="btn btn-info mx-4" download>Download</a>
+                <a href="{{document.file_field.url}}" class="btn btn-warning" target="_blank">View</a>
+                <a href="{{document.file_field.url}}" class="btn btn-info mx-4" download>Download</a>
                 <a href="{% url 'post-delete' %}" class="btn btn-outline-danger" style="float:right;">Delete</a>
 
             </div>
@@ -21,19 +21,4 @@
     </div>
     {% endfor %}
 
-<!--
-    {% for file in files %}
-        <article class="media content-section">
-          <img class="rounded-circle article-img" src="{{ file.poster.profile.image.url }}">
-          <div class="media-body">
-            <div class="article-metadata">
-              <a class="mr-2" href="#">{{ file.poster }}</a>
-              <small class="text-muted">{{ file.datePosted|date:"F d, Y" }}</small>
-            </div>
-            <h2><a class="article-title" href="{% url 'post-detail' file.id %}">{{ file.fileName }}</a></h2>
-            <p class="article-content">{{ file.fileUrl }}</p>
-          </div>
-        </article>
--->
-    {% endfor %}
 {% endblock content %}

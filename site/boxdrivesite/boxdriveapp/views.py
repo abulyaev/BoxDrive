@@ -8,7 +8,7 @@ from django.views.generic import (
 )
 from encrypted_files.uploadhandler import EncryptedFileUploadHandler
 
-from . models import Post, Document
+from . models import Document
 from django.contrib.auth.models import User
 from boxdriveusersreg.models import Profile
 from django.contrib import messages
@@ -77,51 +77,6 @@ class DocumentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 #################################################################
 
-
-class PostListView(ListView):
-    model = Post
-    template_name = 'boxdriveapp/home.html'  # <app>/<model>_<viewtype>.html
-    context_object_name = 'files'
-    ordering = ['-datePosted']
-
-
-class PostDetailView(DetailView):
-    model = Post
-
-
-class PostCreateView(LoginRequiredMixin, CreateView):
-    model = Post
-    fields = ['fileName', 'fileUrl']
-
-    def form_valid(self, form):
-        form.instance.poster = self.request.user
-        return super().form_valid(form)
-
-
-class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Post
-    fields = ['fileName', 'fileUrl']
-
-    def form_valid(self, form):
-        form.instance.poster = self.request.user
-        return super().form_valid(form)
-
-    def test_func(self):
-        file = self.get_object()
-        if self.request.user == file.poster:
-            return True
-        return False
-
-
-class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    model = Post
-    success_url = '/'
-
-    def test_func(self):
-        file = self.get_object()
-        if self.request.user == file.poster:
-            return True
-        return False
 
 @method_decorator(csrf_exempt, 'dispatch')
 class CreateEncryptedFile(CreateView):
