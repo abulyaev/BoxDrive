@@ -13,8 +13,8 @@
                 <h5 class="card-title">{{document.title}}</h5>
 
                 <a href="{{document.file_field.url}}" class="btn btn-warning" target="_blank">View</a>
-                <a href="{{document.file_field.url}}" class="btn btn-info mx-4" download>Download</a>
-
+               <!-- <a href="{{document.file_field.url}}" class="btn btn-info mx-4" download>Download</a>-->
+                <a href="{% url 'post-download' document.id %}" class="btn btn-info mx-4" download>Download</a>
                 <a href="{% url 'post-delete' document.id %}" class="btn btn-outline-danger" style="float:right;">Delete</a>
 
             </div>

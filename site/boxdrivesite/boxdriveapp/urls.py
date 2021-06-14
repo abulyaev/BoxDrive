@@ -19,4 +19,5 @@ urlpatterns = [
     #path('delete/<int:document_id>/', views.DocumentDeleteView.as_view(), name='post-delete'),
     path('delete/<int:pk>/', views.DocumentDeleteView.as_view(), name='post-delete'),
     path('file/<int:pk>/', views.DocumentDetailView.as_view(), name='post-detail'),
+    path('download/<str:pk>/', views.DocumentDownloadView.as_view(), name='post-download'),
 ]

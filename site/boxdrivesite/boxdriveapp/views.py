@@ -1,4 +1,6 @@
 import os
+#import magic
+#import mimetypes
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.views.generic import (
     ListView,
@@ -105,7 +107,14 @@ class CreateEncryptedFile(CreateView):
         else:
             return self.form_invalid(form)
 
-    #def decrypted(request,pk):
-    #    f = Document.objects.get(pk=pk).file
-    #    ef = EncryptedFile(f)
-    #    return HttpResponse(ef.read())
+def decrypted(request,pk):
+    f = Document.objects.get(pk=pk).file_field
+    ef = EncryptedFile(f)
+    return HttpResponse(ef.read()), f
+
+class DocumentDownloadView(UpdateView):
+    def get(self, request, pk):
+        response , f = decrypted(request, pk)
+        response['Content-Disposition'] = 'attachment; filename={file}'.format(file=f)
+        response['Content-Type'] = "text\plain"
+        return response
