@@ -1,5 +1,25 @@
 {% extends "boxdriveapp/base.html" %}
 {% block content %}
+    <!--Posts -->
+    {% for document in documents %}
+    <div class="container my-4 alert alert-success">
+        <div class="card">
+            <h5 class="card-header">By <a style="text-decoration:none; color:#DC3545;" href="{% url 'profile'%}">{{document.cur_user}}</a></h5>
+            <div class="card-body">
+                <h5 class="card-title">{{document.title}}</h5>
+
+                {% if request.session.user %}
+                    <a href="{{MEDIA_URL}}/{{document.file_field.url}}" class="btn btn-warning" target="_blank">View</a>
+                    <a href="{{MEDIA_URL}}/{{document.file_field.url}}" class="btn btn-info mx-4" download>Download</a>
+                {% else %}
+                    <a href="#">You Have To Login Before Download this File.</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+<!--
     {% for file in files %}
         <article class="media content-section">
           <img class="rounded-circle article-img" src="{{ file.poster.profile.image.url }}">
@@ -12,5 +32,6 @@
             <p class="article-content">{{ file.fileUrl }}</p>
           </div>
         </article>
+-->
     {% endfor %}
 {% endblock content %}
