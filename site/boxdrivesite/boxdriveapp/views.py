@@ -6,6 +6,8 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
+from encrypted_files.uploadhandler import EncryptedFileUploadHandler
+
 from . models import Post, Document
 from django.contrib.auth.models import User
 from boxdriveusersreg.models import Profile
