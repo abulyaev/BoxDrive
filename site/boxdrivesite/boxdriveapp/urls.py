@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+#from django.contrib.auth.mixins import AuthMixin
+from django_encrypted_filefield.views import FetchView
 
 
 urlpatterns = [

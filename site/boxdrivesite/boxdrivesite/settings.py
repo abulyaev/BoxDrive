@@ -143,3 +143,7 @@ FILE_UPLOAD_HANDLERS = [
     "django.core.files.uploadhandler.MemoryFileUploadHandler",
     "django.core.files.uploadhandler.TemporaryFileUploadHandler"
 ]
+
+DEFF_SALT = "salt"
+DEFF_PASSWORD = "password"
+DEFF_FETCH_URL_NAME = "fetch"

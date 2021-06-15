@@ -23,6 +23,8 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from encrypted_files.base import EncryptedFile
 from django.http import HttpResponse
+#from django.contrib.auth.mixins import AuthMixin
+from django_encrypted_filefield.views import FetchView
 
 
 def about(request):
@@ -109,3 +111,15 @@ class CreateEncryptedFile(CreateView):
     #    f = Document.objects.get(pk=pk).file
     #    ef = EncryptedFile(f)
     #    return HttpResponse(ef.read())
+
+"""
+class MyPermissionRequiredMixin(AuthMixin)
+    
+    Your own rules live here
+    
+    pass
+"""
+
+
+class MyFetchView(FetchView):
+    pass
